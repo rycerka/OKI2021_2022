@@ -12,6 +12,9 @@ public:
         }
         return false;
     }
+    int size() {
+        return last - first;
+    }
     void push(int value) {
         if (empty()) {
             elements.push_back(value);
@@ -20,6 +23,21 @@ public:
         }
         elements.push_back(value);
         ++last;
+    }
+    void pop() {
+        if (first == last) {
+            first = last = -1;
+            elements.clear();
+        }
+        first++;
+    }
+    int front() {
+        int value;
+        if (empty()) {
+            return value;
+        }
+        value = elements[first];
+        return value;
     }
     int dequeue() {
         int value;
@@ -45,19 +63,22 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    mqueue payments;
-    cout << "empty? - " << payments.empty() << "\n";
-    payments.push(10);
-    payments.push(-3);
-    cout << "empty? - " << payments.empty() << "\n";
-    cout << "serviced - " << payments.dequeue() << "\n";
-    payments.push(1);
-    cout << "serviced - " << payments.dequeue() << "\n";
-    cout << "empty? - " << payments.empty() << "\n";
-    cout << "serviced - " << payments.dequeue() << "\n";
-    payments.push(-33);
-    cout << "serviced - " << payments.dequeue() << "\n";
-    cout << "empty? - " << payments.empty() << "\n";
-    cout << "serviced - " << payments.dequeue() << "\n";
+    mqueue myqueue;
+    cout << "empty? - " << myqueue.empty() << "\n";
+    myqueue.push(10);
+    myqueue.push(-3);
+    cout << "size - " << myqueue.size() << "\n";
+    cout << "empty? - " << myqueue.empty() << "\n";
+    cout << "serviced - " << myqueue.dequeue() << "\n";
+    myqueue.push(1);
+    cout << "front - " << myqueue.front() << "\n";
+    cout << "serviced - " << myqueue.dequeue() << "\n";
+    cout << "empty? - " << myqueue.empty() << "\n";
+    myqueue.pop();
+    cout << "front - " << myqueue.front() << "\n";
+    cout << "serviced - " << myqueue.dequeue() << "\n";
+    myqueue.push(-33);
+    cout << "empty? - " << myqueue.empty() << "\n";
+    cout << "serviced - " << myqueue.dequeue() << "\n";
     return 0;
 }
